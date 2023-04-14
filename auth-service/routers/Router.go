@@ -10,4 +10,5 @@ func SetupRoutes(app *fiber.App) {
 	})
 
 	app.Mount("/auth", AuthRoute())
+	app.Mount("/users", UserRoute())
 }

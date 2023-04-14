@@ -28,9 +28,9 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	hashedPass, err := helpers.HashPassword(user.Password)
+	hashedPass, _ := helpers.HashPassword(user.Password)
 	user.Password = hashedPass
-	err = db.Create(&user).Error
+	err := db.Create(&user).Error
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Could not create user"})
 	}
