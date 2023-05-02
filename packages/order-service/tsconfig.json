@@ -2,6 +2,7 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "@loopback/build/config/tsconfig.common.json",
   "compilerOptions": {
+<<<<<<< HEAD
     "target": "es2015",
     "outDir": "dist",
     "rootDir": "src",
@@ -13,6 +14,10 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "importHelpers": false
+=======
+    "outDir": "dist",
+    "rootDir": "src"
+>>>>>>> 82fd5f0 (Tien | add | add config yarn workspace (#2))
   },
   "include": ["src"]
 }
