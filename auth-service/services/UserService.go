@@ -1,4 +1,4 @@
-package handlers
+package services
 
 import (
 	"github.com/Nguyenle23/Stocking-Microservices/database"
@@ -20,7 +20,7 @@ func GetAllUsers(c *fiber.Ctx) error {
 	return c.Status(200).JSON(fiber.Map{"data": users, "total": len(users)})
 }
 
-func GetUserID(c *fiber.Ctx) error {
+func GetUserByID(c *fiber.Ctx) error {
 	db := database.DB.Db
 	id := c.Params("id")
 

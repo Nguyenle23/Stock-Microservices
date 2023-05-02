@@ -1,4 +1,4 @@
-package handlers
+package services
 
 import (
 	"github.com/Nguyenle23/Stocking-Microservices/database"
