@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "stocking-microservice",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "description": "Stocking Microservices",
+  "scripts": {
+    "all": "concurrently --kill-others-on-fail \"yarn start:order\" \"yarn start:client\"",
+    "start:client": "yarn workspace client dev",
+    "start:order": "yarn workspace order-service start",
+    "test:order": "yarn workspace order-service test:dev"
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
