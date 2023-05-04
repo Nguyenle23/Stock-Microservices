@@ -5,7 +5,9 @@ import (
 	"github.com/Nguyenle23/Stocking-Microservices/helpers"
 	"github.com/Nguyenle23/Stocking-Microservices/middleware"
 	"github.com/Nguyenle23/Stocking-Microservices/models"
+	"github.com/Nguyenle23/Stocking-Microservices/repository"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 func Register(c *fiber.Ctx) error {
@@ -39,28 +41,24 @@ func Register(c *fiber.Ctx) error {
 }
 
 func Login(c *fiber.Ctx) error {
-	db := database.DB.Db
-	var user models.User
-
 	var input middleware.LoginInput
 
 	if err := c.BodyParser(&input); err != nil {
 		return c.SendStatus(fiber.StatusUnauthorized)
 	}
 
-	if err := db.Where("email= ?", input.Email).First(&user).Error; err != nil {
+	userData := repository.UserRepo(database.DB.Db).FindUserByEmail(input.Email)
+	if userData.ID == uuid.Nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"status": "error", "message": "Email does not exists",
 		})
 	}
 
 	pass := input.Password
-
-	if !helpers.ValidatePassword(pass, user.Password) {
+	if !helpers.ValidatePassword(pass, userData.Password) {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"status": "error", "messvalidage": "Password incorrect",
+			"status": "error", "message": "Password incorrect",
 		})
 	}
-
-	return c.Status(200).JSON(fiber.Map{"message": "Login Successful", "data": user})
+	return c.Status(200).JSON(fiber.Map{"message": "Login Successful", "data": userData})
 }

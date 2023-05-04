@@ -3,32 +3,24 @@ package services
 import (
 	"github.com/Nguyenle23/Stocking-Microservices/database"
 	"github.com/Nguyenle23/Stocking-Microservices/helpers"
-	"github.com/Nguyenle23/Stocking-Microservices/models"
+	"github.com/Nguyenle23/Stocking-Microservices/repository"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )
 
 func GetAllUsers(c *fiber.Ctx) error {
-	db := database.DB.Db
-	var users []models.User
-
-	db.Find(&users)
-
+	users := repository.UserRepo(database.DB.Db).FindAllUsers()
 	if len(users) == 0 {
 		return c.Status(404).JSON(fiber.Map{"message": "No users in database"})
 	}
-	return c.Status(200).JSON(fiber.Map{"data": users, "total": len(users)})
+	return c.Status(200).JSON(fiber.Map{ "total": len(users), "data": users})
 }
 
 func GetUserByID(c *fiber.Ctx) error {
-	db := database.DB.Db
-	id := c.Params("id")
-
-	var user models.User
-	db.Find(&user, "id = ?", id)
-
+	userID := c.Params("id")
+	user := repository.UserRepo(database.DB.Db).FindUserByID(userID)
 	if user.ID == uuid.Nil {
-		return c.Status(404).JSON(fiber.Map{"message": "User not found with ID " + id})
+		return c.Status(404).JSON(fiber.Map{"message": "User not found", "data": nil})
 	}
 	return c.Status(200).JSON(fiber.Map{"data": user})
 }
@@ -38,14 +30,10 @@ func UpdateUser(c *fiber.Ctx) error {
 		Password string `json:"password"`
 	}
 
-	db := database.DB.Db
-	var user models.User
-
-	id := c.Params("id")
-	db.Find(&user, "id = ?", id)
-
+	userID := c.Params("id")
+	user := repository.UserRepo(database.DB.Db).FindUserByID(userID)
 	if user.ID == uuid.Nil {
-		return c.Status(404).JSON(fiber.Map{"message": "User not found"})
+		return c.Status(404).JSON(fiber.Map{"message": "User not found", "data": nil})
 	}
 
 	var updateUserData updateUser
@@ -56,30 +44,22 @@ func UpdateUser(c *fiber.Ctx) error {
 
 	if len(updateUserData.Password) < 6 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Password must be at least 6 characters",
+			"message": "Password must be at least 6 characters",	
 		})
 	}
+
 	hashedPass, _ := helpers.HashPassword(updateUserData.Password)
 	user.Password = hashedPass
-	db.Save(&user)
+	repository.UserRepo(database.DB.Db).UpdateUserByID(userID, user)
 	return c.Status(200).JSON(fiber.Map{"message": "Update user successfully", "data": user})
 }
 
 func DeleteUserByID(c *fiber.Ctx) error {
-	db := database.DB.Db
-	var user models.User
-
-	id := c.Params("id")
-	db.Find(&user, "id = ?", id)
-
+	userID := c.Params("id")
+	user := repository.UserRepo(database.DB.Db).FindUserByID(userID)
 	if user.ID == uuid.Nil {
 		return c.Status(404).JSON(fiber.Map{"message": "User not found", "data": nil})
 	}
-
-	err := db.Delete(&user, "id = ?", id).Error
-	if err != nil {
-		return c.Status(404).JSON(fiber.Map{"message": "Failed to delete user", "data": nil})
-	}
-
-	return c.Status(200).JSON(fiber.Map{"message": "User deleted successfully"})
+	repository.UserRepo(database.DB.Db).DeleteUserByID(userID)
+	return c.Status(200).JSON(fiber.Map{"message": "Delete user successfully"})
 }
