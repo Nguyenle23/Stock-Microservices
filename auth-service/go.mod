@@ -10,11 +10,25 @@ require (
 )
 
 require (
+	github.com/bep/godartsass v0.16.0 // indirect
+	github.com/bep/golibsass v1.1.0 // indirect
+	github.com/cli/safeexec v1.0.0 // indirect
+	github.com/cosmtrek/air v1.43.0 // indirect
+	github.com/creack/pty v1.1.18 // indirect
+	github.com/fatih/color v1.14.1 // indirect
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.12.0 // indirect
+	github.com/gohugoio/hugo v0.111.3 // indirect
+	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
 	github.com/leodido/go-urn v1.2.2 // indirect
+	github.com/pelletier/go-toml v1.9.5 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/spf13/afero v1.9.3 // indirect
+	github.com/tdewolff/parse/v2 v2.6.5 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 )
 
 require (
