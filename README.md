@@ -6,11 +6,11 @@
 
 | Number | ID | Name |
 | ----- | ----- | --------- |
-| 1 | ITITIU19169 | Le Nguyen Binh Nguyen |
-| 2 | ITITIU19217 | Tran Ngoc Tien |
+| 1 | ITITIU19217 | Tran Ngoc Tien |
+| 2 | ITITIU19169 | Le Nguyen Binh Nguyen |
 
 <h4>Motivation</h4> 
-<p>Our team want to apply the knowledge learned from the course to create an application that can use Socket to communcicate between each services and also to order stocking in real-time</p>
+<p>Our team want to apply the knowledge learned from the course to create an application that can use Socket to order stock in real-time and also can communicate services between each other</p>
 
 <h4>Present slides: <a href="https://www.canva.com/design/DAFjvH0sgTM/or3u9AjEydGnUNooIFiSfg/view"> here </a> </h4>
 
@@ -29,8 +29,8 @@
 
 <h2 id="general-information"> 🧮 General Information</h2>
 
-- **Client** : ReactJS for Login, Register, Dashboard to order stock
-- **Server** : GoFiber, Loopback framework to operate application
+- **Client** : ReactJS for designing UI Login, Register, Dashboard to order stock
+- **Server** : GoFiber, Loopback framework to operate application and handle order stocks
 
 <h2 id="features"> 📋 Features</h2>
 
@@ -66,22 +66,23 @@ List the ready features here:
     ├── client
     │   ├── src
     │   │   ├── actions
+    │   │   ├── assets
     │   │   ├── components
     │   │   ├── App.tsx
-    │   │   ├── main.js
+    │   │   ├── main.tsx
    
-    ├── server
+    ├── auth-service
     │   ├── cmd
     │   ├── controllers
-    │   ├── services
-    │   ├── repositories
+    │   ├── database
+    │   ├── helpers
     │   ├── middlewares
     │   ├── models
-    │   ├── routes
-  
-<h3> Sequence diagram </h3> 
-<img src="https://res.cloudinary.com/nguyenle23/image/upload/v1684867231/netcentric/sd_rqx1rl.png" alt="Sequence-diagram">
+    │   ├── repositories
+    │   ├── routers
+    │   ├── services
 
+  
 <h2 id="screenshot"> 📸 Screenshots </h2>
 
 ### Client
@@ -94,5 +95,4 @@ List the ready features here:
 ### What We Learnt
 - Implementation of developing webserver
 - Usage of socket in real-time application
-- Communication between Frontend and Backend developers
-- Importance of README.md documents 
+- Communication between each services
