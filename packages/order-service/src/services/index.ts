@@ -1,0 +1,1 @@
+export { JWTTokenService } from '@lb/infra';

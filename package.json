@@ -8,7 +8,7 @@
   "scripts": {
     "all": "concurrently --kill-others-on-fail \"yarn start:order\" \"yarn start:client\"",
     "start:client": "yarn workspace client dev",
-    "start:order": "yarn workspace order-service start",
+    "start:order": "yarn workspace order-service server:dev",
     "test:order": "yarn workspace order-service test:dev"
   },
   "dependencies": {
