@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 5
+    },
+    "auditLog": ".6745e138f92174f69b8f653fb6b870566911ac7b-audit.json",
+    "files": [
+        {
+            "date": 1684888187956,
+            "name": "TNT-error-20230524_07.log",
+            "hash": "3fdb299a15e882452e9f6d74ada0f99c9012115be3bb68a15a5bf3e2804096c6"
+        },
+        {
+            "date": 1684901587387,
+            "name": "TNT-error-20230524_11.log",
+            "hash": "0ecff4999441896afec2221835cb31b6ca946ec7b7d71535b6a5444fa505cd4b"
+        }
+    ],
+    "hashType": "sha256"
+}

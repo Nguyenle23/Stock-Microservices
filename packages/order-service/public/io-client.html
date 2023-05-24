@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IO Client Test</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://loopback.io/favicon.ico"
+    />
+  </head>
+
+  <body>
+    <h1>IO Client Test</h1>
+    <p id="symbol"></p>
+    <p id="price"></p>
+  </body>
+
+  <script type="module">
+    import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+    const socket = io("http://localhost:4999", {
+      path: "/stream",
+      // extraHeaders: {
+      //   Authorization:
+      //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVMkZzZEdWa1gxODVXdHdyTXdtS2tSMk9Nd0VmZVptVFlOaUxudkRFclZZPSI6IlUyRnNkR1ZrWDE5aTBjdDMzSkhOSzlZZnZyaDRhM1l2eGptWmZVOFd2ZWs9IiwiVTJGc2RHVmtYMTk0SGxyNmtyWm8wamRld3dFQ1JaSmxvVjdieUc1SE11ND0iOiJVMkZzZEdWa1gxOS9LcHFmR1dzZVFUakhrb2ZXdWE2b2JCemZIbVdFV1lDOE5xdHJDRDNGRWlQR0JiZkF4QkNVIiwiaWF0IjoxNjgxODA1NjkyLCJleHAiOjE2ODE4OTIwOTJ9.wdqhR12Zd-16_OqYSS7_ZtkOj9T9W2_ERC8rty7LYjg',
+      // },
+    });
+
+    socket.on("ping", (payload) => {
+      console.log(payload);
+    });
+
+    socket.on("unauthenticated", (payload) => {
+      console.log(payload);
+    });
+
+    socket.on("connect", () => {
+      console.log("SOCKET CONNECTED");
+      socket.emit("authenticate");
+    });
+
+    socket.on("authenticated", () => {
+      console.log("Socket is authenticated");
+      socket.emit("join", {
+        rooms: ["market-price"],
+      });
+    });
+
+    socket.on("market-price", (args) => {
+      console.log("args: ", args);
+    });
+  </script>
+</html>
